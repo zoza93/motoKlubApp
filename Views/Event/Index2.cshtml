@@ -1,0 +1,56 @@
+﻿@model IEnumerable<MotoKlubASP.Models.EventWithType>
+
+@{
+    ViewBag.Title = "Index2";
+}
+
+<h2 class="naslov">MOJI DOGADjAJI</h2>
+<div style="float:right">
+    <p>
+        <button class="btn btn-danger" onclick="location.href = '@Url.Action("Create2", "Event")'" style="width:115px;">DODAJ</button>
+    </p>
+</div>
+<table class="table color-white" id="grad1">
+    <tr>
+        <th class="nodisplay">
+            @Html.DisplayNameFor(model => model.EventID)
+        </th>
+        <th>
+            <p>NAZIV</p>
+        </th>
+        <th>
+            <p>DATUM</p>
+        </th>
+        <th>
+            <p>TIP</p>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="nodisplay">
+                @Html.DisplayFor(modelItem => item.EventID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventName)
+            </td>
+            <td>
+                @try
+                { @item.Date.Value.ToString("dd/MM/yyyy");
+                }
+                catch
+                { @Html.DisplayFor(modelitem => item.Date);
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventType)
+            </td>
+            <td>
+                <button class="btn btn-danger btn-width1" onclick="location.href = '@Url.Action("DeleteMemEve", "Event", new { EventID = item.EventID })'">OBRIŠI</button>
+            </td>
+        </tr>
+    }
+
+</table>

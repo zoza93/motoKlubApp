@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MotoKlubASP.Models.Coordinate>
+
+@{
+    ViewBag.Title = "Maps";
+}
+
+<h1 class="naslov">MAPA DOGAĐAJA</h1>
+<div id="googleMap" style="width:100%;height:600px; background:url(../../images/marker.png)"></div>
+
+<script>
+    function initializeThisMap() {
+        var mapOptions = {
+            zoom: 6,
+            center: new google.maps.LatLng(44.968081, 19.605227),
+        };
+
+        var map = new google.maps.Map(document.getElementById('googleMap'),
+            mapOptions);
+
+        var infowindow = new google.maps.InfoWindow();
+
+        var marker;
+        var i = 1;
+        var iconBase = "../../images/marker.png";
+        @foreach (var item in Model) {
+            <text>
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(@item.Latitude, @item.Longitude),
+                map: map,
+                icon: iconBase
+            });
+
+            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                return function () {
+                    infowindow.setContent('@item.Name');
+                    infowindow.open(map, marker);
+                }
+            })(marker, i++));
+            </text>
+        }
+    }
+</script>
+
+                      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH-JUrA3OCN7lLeGjcuFAxKAA7YFZ3314&callback=myMap"></script>

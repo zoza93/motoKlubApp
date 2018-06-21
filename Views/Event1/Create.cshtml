@@ -1,0 +1,159 @@
+﻿@model wcfmotoklub.tblEvent
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2 class="naslov">DODAJ DOGAĐAJ</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group nodisplay">
+            @Html.LabelFor(model => model.EventID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EventID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EventID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2 col-xs-2">
+                <p class="edit-myprofile">DATUM</p>
+            </div>
+            <div class="col-md-10 col-xs-10">
+                @Html.EditorFor(model => model.Date, new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control",
+                   @max = DateTime.Now,
+                   data_val = "true",
+                   data_val_regex = "Datum ne moze biti veći od današnjeg"
+               }
+           })
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2 col-xs-2">
+                <p class="edit-myprofile">NAZIV</p>
+            </div>
+            <div class="col-md-10 col-xs-10">
+                @Html.EditorFor(model => model.EventName, new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control",
+                   @maxlength = "50",
+                   required = "required",
+                   data_val = "true",
+                   data_val_regex = "Naziv moze sadrzati samo slova",
+                   data_val_regex_pattern = @"^[a-zA-Z\s]+$"
+               }
+           })
+                @Html.ValidationMessageFor(model => model.EventName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2 col-xs-2">
+                <p class="edit-myprofile">LOKACIJA</p>
+            </div>
+            <div class="col-md-10 col-xs-10">
+                @Html.EditorFor(model => model.Location, new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control",
+                   @maxlength = "50",
+                   data_val = "true",
+                   data_val_regex = "Naziv moze sadrzati samo slova",
+                   data_val_regex_pattern = @"^[a-zA-Z\s]+$"
+               }
+           })
+                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="control-label col-md-2 col-xs-2">
+                <p class="edit-myprofile">KOORDINATE</p>
+            </div>
+            <div class="col-md-10 col-xs-10">
+                <div id="map" style="width:278px;height:278px; margin-bottom:20px;"></div>
+                <div class="nodisplay">
+                    @Html.TextBoxFor(model => model.Latitude, null, new { @class = "form-control", @id = "latbox" })
+                    @Html.TextBoxFor(model => model.Longitude, null, new { @class = "form-control", @id = "lngbox" })
+                </div>
+            </div>
+        
+
+        <div class="form-group">
+            <div class="control-label col-md-2 col-xs-2">
+                <p class="edit-myprofile">TIP</p>
+            </div>
+            <div class="col-md-10 col-xs-10">
+                @Html.DropDownList("TypeOfEventID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TypeOfEventID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="DODAJ" class="btn btn-danger btn-width1" />
+            </div>
+        </div>
+    </div>
+    </div>
+}
+
+<div>
+    <button type="button" class="btn btn-danger btn-width" onclick="location.href='@Url.Action("Index", "Event1")'">NAZAD</button>
+</div>
+        <script>
+    var marker;
+    var infowindow;
+    function myMap() {
+        var mapCanvas = document.getElementById("map");
+        var myCenter = new google.maps.LatLng(44.968081, 19.605227);
+        var mapOptions = { center: myCenter, zoom: 5 };
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+        google.maps.event.addListener(map, 'click', function (event) {
+
+            placeMarker(map, event.latLng);
+            document.getElementById("latbox").value = event.latLng.lat();
+            document.getElementById("lngbox").value = event.latLng.lng();
+        });
+    }
+
+    function placeMarker(map, location) {
+        if (!marker || !marker.setPosition) {
+            marker = new google.maps.Marker({
+                position: location,
+                map: map,
+            });
+        } else {
+            marker.setPosition(location);
+        }
+        if (!!infowindow && !!infowindow.close) {
+            infowindow.close();
+        }
+        infowindow = new google.maps.InfoWindow({
+            content: 'Latitude: ' + location.lat() + '<br>Longitude: ' + location.lng()
+        });
+
+        infowindow.open(map, marker);
+        var LAT = location.lat();
+        var LNG = location.lng();
+    }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVYh8G-tMNJZxAJU3ICvIqD832NaF6iAQ&callback=myMap"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

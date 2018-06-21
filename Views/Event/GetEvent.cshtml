@@ -1,0 +1,56 @@
+﻿@model IEnumerable<MotoKlubASP.Models.EventWithType>
+
+@{
+    ViewBag.Title = "GetEvent";
+}
+
+<h2 class="naslov">POSETE</h2>
+
+@if ((bool)Session["Admin"])
+{
+    <div style="float:right">
+        <p>
+            <button class="btn btn-danger" onclick="location.href = '@Url.Action("Create", "Event")'" style=" margin-bottom:15px; width:115px;">DODAJ</button>
+        </p>
+    </div>
+}
+<table class="table color-white" id="grad1">
+    <tr>
+        <th class="nodisplay">
+            @Html.DisplayNameFor(model => model.EventID)
+        </th>
+        <th>
+            <p>DATUM</p>
+        </th>
+        <th>
+            <p>NAZIV DOGAĐAJA</p>
+        </th>
+        <th>
+            <p>TIP DOGAĐAJA</p>
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td class="nodisplay">
+            @Html.DisplayFor(modelItem => item.EventID)
+        </td>
+        <td>
+            @try
+            { @item.Date.Value.ToString("dd/MM/yyyy");
+            }
+            catch
+            { @Html.DisplayFor(modelitem => item.Date);
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventType)
+        </td>
+    </tr>
+}
+
+</table>
+<button class="btn btn-danger btn-width" style="float:right;" onclick="location.href = '@Url.Action("Index", "Event")'">NAZAD</button>

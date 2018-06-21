@@ -1,0 +1,23 @@
+﻿@model MotoKlubASP.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+}
+@{
+    Layout = "~/Views/Shared/Layout_Login.cshtml";
+}
+<div class="container body-content" style="text-align:center!important; color:white; margin-top:50px; width:310px; background:rgba(1, 0, 14, 0.7);border-radius: 20px;">
+    <h1 class="naslov">MK SPARTANAC</h1>
+    <div class="container body-content" style="width:196px!important">
+        <h2 class="naslov">LOGOVANjE</h2>
+
+        <br />
+        @using (Html.BeginForm())
+        {
+            @Html.EditorForModel()
+            <p>
+                <button type="submit" class="btn btn-danger btn-width" style="margin-top:10px;">ULOGUJ SE</button>
+            </p>
+        }
+    </div>
+    
+</div>

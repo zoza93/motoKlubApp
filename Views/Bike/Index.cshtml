@@ -1,0 +1,92 @@
+﻿@model IEnumerable<MotoKlubASP.Models.BikesAndMembers>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="naslov">SVI MOTORI</h2>
+
+@if ((bool)Session["Admin"])
+{
+    <div style="float:right">
+        <p>
+            <button class="btn btn-danger" onclick="location.href = '@Url.Action("Create", "Bike")'" style=" margin-bottom:15px; width:115px;">DODAJ</button>
+        </p>
+    </div>
+}
+<div style="color:white;padding:5px; width:211px;">
+    <p>
+        @using (Html.BeginForm("Index", "Bike", FormMethod.Get))
+        {
+            @Html.TextBox("search")<input type="button" value="X" class="clear-btn" /><br/>
+        <input type="submit" value="TRAŽI" class="btn btn-danger" style="margin-top:5px;" />
+        }
+    </p>
+</div>
+
+<table class="table color-white" id="grad1">
+    <tr>
+        <th class="nodisplay">
+            @Html.DisplayNameFor(model => model.BikeID)
+        </th>
+        <th>
+            <p>Ime</p>
+        </th>
+        <th>Prezime</th>
+        <th>
+            <p>Marka</p>
+        </th>
+        <th>
+            <p>Model</p>
+        </th>
+        <th>
+            <p>Godiste</p>
+        </th>
+        <th class="nodisplay">
+            @Html.DisplayNameFor(model => model.MemberID)
+        </th>
+        @if ((bool)Session["Admin"])
+        {
+            <th></th>
+        }
+        
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="nodisplay">
+                @Html.DisplayFor(modelItem => item.BikeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td class="nodisplay">
+                @Html.DisplayFor(modelItem => item.MemberID)
+            </td>
+            
+                @if ((bool)Session["Admin"])
+                {
+                    <td>
+                        <button class="btn btn-danger btn-width1" style="float:right; margin-left:5px!important;" onclick="location.href = '@Url.Action("Delete", "Bike", new { BikeID = item.BikeID })'">OBRIŠI</button>
+                        <button class="btn btn-danger btn-width1" style="float:right;" onclick="location.href = '@Url.Action("Edit", "Bike", new { BikeID = item.BikeID })'">IZMENI</button>
+                    </td>
+                }
+                    
+        </tr>
+    }
+
+</table>
+

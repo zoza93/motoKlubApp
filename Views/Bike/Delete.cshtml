@@ -1,0 +1,61 @@
+﻿@model wcfmotoklub.tblBike
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3 style="color:#d43f3a">DA LI STE SIGURNI DA ŽELITE DA OBRIŠETE OVAJ MOTOR?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal color-white">
+        <dt class="nodisplay">
+            @Html.DisplayNameFor(model => model.BikeID)
+        </dt>
+
+        <dd class="nodisplay">
+            @Html.DisplayFor(model => model.BikeID)
+        </dd>
+
+        <dt>
+            MARKA
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Brand)
+        </dd>
+
+        <dt>
+            MODEL
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+
+        <dt>
+            GODISTE
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            VLASNIK
+        </dt>
+
+        <dd>
+            @Html.Raw(ViewBag.MemberID)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="OBRIŠI" class="btn btn-danger btn-width" style="margin-left:5px!important;" />
+            <button type="button" class="btn btn-danger btn-width" style="margin-left:5px!important;" onclick="location.href='@Url.Action("Index", "Bike")'">NAZAD</button>
+        </div>
+    }
+</div>

@@ -1,0 +1,142 @@
+﻿@model MotoKlubASP.Models.Members
+
+@{
+    ViewBag.Title = "Details";
+}
+<html>
+<head>
+    <title>Detalji</title>
+</head>
+<body style="background-color:rgba(0, 0, 0, 0.65);">
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" onclick="location.href='@Url.Action("Index", "MemberList")'">&times;</button>
+                    <h4 class="modal-title">Detalji * @Html.DisplayFor(model => model.Name) *</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                <p>Ime</p>
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <p>Prezime</p>
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Surname)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <p>Nadimak</p>
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Nickname)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                               <p>Datum rodjenja</p>
+                            </th>
+                            <td>
+                                @try
+                                { @Model.DateBirth.Value.ToString("dd/MM/yyyy")
+                                }
+                                catch
+                                { @Html.DisplayFor(model => model.DateBirth);
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <p>JMBG</p>
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.JMBG)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <p>Telefon</p>
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Phone)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <p>Adresa</p>
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Address)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <p>Grad</p>
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.City)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <p>Broj na prsluku</p>
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Number)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <p>Email</p>
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Email)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <p>Status</p>
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.StatusType)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <p>Privilegija</p>
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.TypeOfPrivilage)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <p>Motor</p>
+                            </th>
+                            <td>
+                                @Html.Raw(ViewBag.Bike)
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" onclick="location.href='@Url.Action("Index", "MemberList")'" style=" margin-bottom:15px; width:100px; margin-left:200px;">Nazad</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+﻿@model IEnumerable<wcfmotoklub.tblMember>
+
+@{
+    ViewBag.Title = "Index";
+}
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LISTA ČLANOVA</title>
+</head>
+<body>
+    <h2 style="color:#d43f3a">SVI CLANOVI</h2>
+    @if ((bool)Session["Admin"])
+    {
+        <div style="float:right">
+            <p>
+                <button class="btn btn-danger" onclick="location.href = '@Url.Action("Create", "MemberList")'" style=" margin-bottom:15px; width:115px;">Dodaj Clana</button>
+            </p>
+        </div>
+    }
+    <div style="color:white;padding:5px; width:50%;">
+        <p>
+            @using (Html.BeginForm("Index", "MemberList", FormMethod.Get))
+            {
+                @Html.TextBox("search")<input type="button" value="X" class="clear-btn" /><br />
+                <input type="submit" value="TRAŽI" class="btn btn-danger" style="margin-top:5px;" />
+            }
+        </p>
+    </div>
+    <div id="ListaClanova">
+        <h3 style="border-top: 2px solid; border-bottom: 2px solid; background-color: rgba(0, 0, 0, 0.28); font-weight: bold; width: fit-content; color: #d43f3a;">AKTIVNI</h3>
+        <table class="table color-white back-black">
+            <tr>
+                <th style="display:none;">
+                    @Html.DisplayNameFor(model => model.MemberID)
+                </th>
+                <th>
+                    <p>IME</p>
+                </th>
+                <th>
+                    <p>PREZIME</p>
+                </th>
+                <th>
+                    <p>NADIMAK</p>
+                </th>
+                <th>
+                    <p>TELEFON</p>
+                </th>
+                <th>
+                    <p>BROJ</p>
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                if (item.StatusID != 4)
+                {
+                    <tr>
+                        <td style="display:none;">
+                            @Html.DisplayFor(modelItem => item.MemberID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Surname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nickname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Number)
+                        </td>
+                        <td>
+                            <button type="button" style="float: right; margin-left: 5px!important;" class="btn btn-danger" onclick="location.href='@Url.Action("Details", "MemberList", new { id = item.MemberID})'">Detalji</button>
+                            @if ((bool)Session["Admin"])
+                            {
+                                <button type="button" style="float: right; margin-left: 5px!important;" class="btn btn-danger" onclick="location.href='@Url.Action("Edit", "MemberList", new { id = item.MemberID})'">Izmeni</button>
+                            }
+
+                        </td>
+                    </tr>
+                }
+            }
+
+        </table>
+
+        <h3 style="border-top: 2px solid; border-bottom: 2px solid; background-color: rgba(0, 0, 0, 0.28); font-weight: bold; width: fit-content; color: #d43f3a;">NEAKTIVNI</h3>
+        <table class="table color-white back-black">
+            <tr>
+                <th style="display:none;">
+                    @Html.DisplayNameFor(model => model.MemberID)
+                </th>
+                <th>
+                    <p>IME</p>
+                </th>
+                <th>
+                    <p>PREZIME</p>
+                </th>
+                <th>
+                    <p>NADIMAK</p>
+                </th>
+                <th>
+                    <p>TELEFON</p>
+                </th>
+                <th>
+                    <p>BROJ</p>
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                if (item.StatusID == 4)
+                {
+                    <tr>
+                        <td style="display:none;">
+                            @Html.DisplayFor(modelItem => item.MemberID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Surname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nickname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Number)
+                        </td>
+                        <td>
+                            <button type="button" style="float: right; margin-left: 5px!important;" class="btn btn-danger" onclick="location.href='@Url.Action("Details", "MemberList", new { id = item.MemberID})'">Detalji</button>
+                            @if ((bool)Session["Admin"])
+                            {
+                                <button type="button" style="float: right; margin-left: 5px!important;" class="btn btn-danger" onclick="location.href='@Url.Action("Edit", "MemberList", new { id = item.MemberID})'">Izmeni</button>
+                            }
+
+                        </td>
+                    </tr>
+                }
+            }
+
+        </table>
+    </div>
+    <br />
+    <br />
+    @using (Html.BeginForm("Export", "MemberList", FormMethod.Post))
+    {
+        <input type="hidden" name="GridHtml" />
+        <input type="submit" id="btnSubmit" value="Export" class="btn btn-danger btn-width" />
+    }
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btnSubmit").click(function () {
+                $("input[name='GridHtml']").val($("#ListaClanova").html());
+            });
+        });
+    </script>
+</body>

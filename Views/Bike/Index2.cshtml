@@ -1,0 +1,66 @@
+﻿@model IEnumerable<wcfmotoklub.tblBike>
+
+@{
+    ViewBag.Title = "Index2";
+}
+
+<h2 style="color:#d43f3a">MOJ MOTOR</h2>
+<div>
+    <button class="btn btn-danger" onclick="location.href = '@Url.Action("Create2", "Bike")'" style=" margin-bottom:15px; width:115px;">DODAJ</button>
+</div>
+@foreach (var item in Model)
+    {
+<table class="table color-white" id="grad1">
+    
+        <tr style="display:none!important;">
+            <th>
+                
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.BikeID)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p>Marka</p>
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p>Model</p>
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p>Godiste</p>
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p>Vlasnik</p>
+            </th>
+            <td>
+                @Html.Raw(ViewBag.Member)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                
+            </th>
+            <td>
+                <button class="btn btn-danger" onclick="location.href = '@Url.Action("Edit", "Bike", new { BikeID = item.BikeID })'" style=" margin-bottom:15px; width:115px;">IZMENI</button>
+                <button class="btn btn-danger" onclick="location.href = '@Url.Action("Delete", "Bike", new { BikeID = item.BikeID })'" style=" margin-bottom:15px; width:115px;">OBRIŠI</button>
+            </td>
+        </tr>
+  
+</table>
+    }

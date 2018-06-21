@@ -1,0 +1,54 @@
+﻿@model wcfmotoklub.tblEvent
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3 class="naslov">Da li si siguran da želiš da obrišeš ovaj događaj?</h3>
+<div>
+    <h5 class="naslov">Prilikom brisanja obrisaće se i sve posete vezane za ovaj događaj</h5>
+    <hr />
+    <dl class="dl-horizontal color-white">
+        <dt class="nodisplay">
+            @Html.DisplayNameFor(model => model.EventID)
+        </dt>
+
+        <dd class="nodisplay">
+            @Html.DisplayFor(model => model.EventID)
+        </dd>
+
+        <dt>
+            DATUM
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            NAZIV DOGAĐAJA
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventName)
+        </dd>
+
+        <dt>
+            TIP
+        </dt>
+
+        <dd>
+            @Html.Raw(ViewBag.EventType)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Obrisi" class="btn btn-danger btn-width" />
+            <button type="button" class="btn btn-danger btn-width" onclick="location.href='@Url.Action("Index", "Event1")'">NAZAD</button>
+        </div>
+    }
+</div>

@@ -1,0 +1,86 @@
+﻿@model IEnumerable<MotoKlubASP.Models.EventWithType>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="naslov">SVI DOGAĐAJI</h2>
+
+<div style="float:right">
+    <p>
+        <button class="btn btn-danger" onclick="location.href = '@Url.Action("Create", "Event1")'" style=" margin-bottom:15px; width:115px;">DODAJ</button>
+    </p>
+</div>
+<div style="color:white;padding:5px; width:50%;">
+    <p>
+        @using (Html.BeginForm("Index", "Event1", FormMethod.Get))
+        {
+            @Html.TextBox("search")<input type="button" value="X" class="clear-btn" /><br />
+            <input type="submit" value="TRAŽI" class="btn btn-danger" style="margin-top:5px;" />
+        }
+    </p>
+</div> 
+<table class="table color-white" id="grad1">
+    <tr>
+        <th class="nodisplay">
+            @Html.DisplayNameFor(model => model.EventID)
+        </th>
+        <th>
+            <p>NAZIV</p>
+        </th>
+        <th>
+            <p>DATUM</p>
+        </th>
+        <th>
+            <p>LOKACIJA</p>
+        </th>
+        <th>
+            <p>TIP</p>
+        </th>
+        <th>
+            <p>BROJ ČLANOVA</p>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td class="nodisplay">
+            @Html.DisplayFor(modelItem => item.EventID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventName)
+        </td>
+        <td>
+            @try
+            { @item.Date.Value.ToString("dd/MM/yyyy");
+            }
+            catch
+            { @Html.DisplayFor(modelitem => item.Date);
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfMember)
+        </td>
+        <td>
+            
+@if ((bool)Session["Admin"])
+{
+            <button class="btn btn-danger btn-width1" style="float:right;" onclick="location.href = '@Url.Action("Delete", "Event1", new { EventID = item.EventID })'">OBRIŠI</button>
+            <button class="btn btn-danger btn-width1" style="float:right; margin-right:5px; margin-left:5px" onclick="location.href = '@Url.Action("Edit", "Event1", new { EventID = item.EventID })'">IZMENI</button>
+}
+@if (item.NumberOfMember > 0)
+{
+    <button class="btn btn-danger btn-width1" style="float:right;" onclick="location.href = '@Url.Action("Participants", "Event1", new { EventID = item.EventID })'">UČESNICI</button>
+}   
+        </td>
+    </tr>
+}
+
+</table>

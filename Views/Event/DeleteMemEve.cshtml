@@ -1,0 +1,60 @@
+﻿@model wcfmotoklub.tblMemberEvent
+
+@{
+    ViewBag.Title = "DeleteMemEve";
+}
+
+<h3 class="naslov">DA LI STE SIGURNI DA ŽELITE DA OBRIŠETE OVU POSETU?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal color-white">
+        <dt class="nodisplay">
+            @Html.DisplayNameFor(model => model.MemberID)
+        </dt>
+
+        <dd class="nodisplay">
+            @Html.DisplayFor(model => model.MemberID)
+        </dd>
+
+        <dt class="nodisplay">
+            @Html.DisplayNameFor(model => model.EventID)
+        </dt>
+
+        <dd class="nodisplay">
+            @Html.DisplayFor(model => model.EventID)
+        </dd>
+
+        <dt>
+            NAZIV DOGAĐAJA
+        </dt>
+
+        <dd>
+            @Html.Raw(ViewBag.EventName)
+        </dd>
+
+        <dt>
+            DATUM
+        </dt>
+
+        <dd>
+            @Html.Raw(ViewBag.EventDate)
+        </dd>
+
+        <dt>
+            ČLAN
+        </dt>
+
+        <dd>
+            @Html.Raw(ViewBag.MemberName)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <button type="button" class="btn btn-danger btn-width" style="margin-left:5px!important;" onclick="location.href='@Url.Action("Index2", "Event")'">NAZAD</button>
+            <input type="submit" value="OBRIŠI" class="btn btn-danger btn-width" style="margin-left:5px!important;" />
+        </div>
+    }
+</div>

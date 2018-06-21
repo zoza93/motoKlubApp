@@ -1,0 +1,15 @@
+﻿@model IEnumerable<wcfmotoklub.tblMember>
+
+@{
+    ViewBag.Title = "Participants";
+}
+
+<h2 class="naslov">ČLANOVI KOJI SU PRISUSTVOVALI</h2>
+    <ol style="background: rgba(0, 0, 0, 0.36); color: white; font-weight: bold; width: fit-content; padding-right: 28px;">
+    @foreach (var item in Model)
+    {
+        <li>@Html.DisplayFor(modelItem => item.Name)   @Html.DisplayFor(modelItem => item.Surname)</li>
+    }
+
+</ol>
+<button type="button" class="btn btn-danger btn-width" onclick="location.href='@Url.Action("Index", "Event1")'">NAZAD</button>

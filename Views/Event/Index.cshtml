@@ -1,0 +1,40 @@
+﻿@model IEnumerable<wcfmotoklub.tblMember>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="naslov" style="text-align:center;">IZABERI ČIJE AKTIVNOSTI ŽELIŠ DA PREGLEDAŠ?</h2>
+<div style="color:white;padding:5px; text-align:center;width:211px;margin-left:auto;margin-right:auto;">
+    <p>
+        @using (Html.BeginForm("Index", "Event", FormMethod.Get))
+        {
+            @Html.TextBox("search")<input type="button" value="X" class="clear-btn" /><br />
+            <input type="submit" value="TRAŽI" class="btn btn-danger" style="margin-top:5px;" />
+        }
+    </p>
+</div>
+    <table class="table color-white" style="width:200px;margin-left:auto;margin-right:auto; border:2px solid white;">
+        @foreach (var item in Model)
+        {
+            <tr id="grad1">
+                <td class="nodisplay">
+                    @Html.DisplayFor(modelItem => item.MemberID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    <button class="btn btn-danger btn-width1" style="float:right;" onclick="location.href = '@Url.Action("GetEvent", "Event", new { MemberID = item.MemberID })'">IZABERI</button>
+                </td>
+            </tr>
+        }
+    </table>
+
+

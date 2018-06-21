@@ -1,0 +1,234 @@
+﻿@model wcfmotoklub.tblMember
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2 style="color:white;">IZMENI SVOJE PODATKE</h2>
+
+
+@using (Html.BeginForm())
+{
+    
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal myform">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group" style="display:none;">
+            @Html.LabelFor(model => model.MemberID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MemberID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MemberID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2 col-xs-2 control-label">
+                <p class="edit-myprofile">IME</p>
+            </div>
+            <div class="col-md-10 col-xs-10">
+                @Html.TextBoxFor(model => model.Name, new
+           {
+               @class = "form-control",
+               @maxlength = "30",
+               required = "required",
+               data_val = "true",
+               data_val_regex = "Ime moze sadrzati samo slova",
+               data_val_regex_pattern = @"^[a-zA-Z\s]+$"
+           })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2 col-xs-2 control-label">
+                <p class="edit-myprofile">PREZIME</p>
+            </div>
+            <div class="col-md-10 col-xs-10">
+                @Html.TextBoxFor(model => model.Surname, new
+           {
+               @class = "form-control",
+               @maxlength = "50",
+               required = "required",
+               data_val = "true",
+               data_val_regex = "Prezime moze sadrzati samo slova",
+               data_val_regex_pattern = @"^[a-zA-Z\s]+$"
+           })
+                @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2 col-xs-2 control-label">
+                <p class="edit-myprofile">NADIMAK</p>
+            </div>
+            <div class="col-md-10 col-xs-10">
+                @Html.TextBoxFor(model => model.Nickname, new
+           {
+               @class = "form-control",
+               @maxlength = "30",
+               data_val = "true",
+               data_val_regex = "Nadimak moze sadrzati samo slova",
+               data_val_regex_pattern = @"^[a-zA-Z\s]+$"
+           })
+                @Html.ValidationMessageFor(model => model.Nickname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2 col-xs-2 control-label">
+                <p class="edit-myprofile">DATUM RODjENjA</p>
+            </div>
+            <div class="col-md-10 col-xs-10">
+                @try
+                { @Html.TextBoxFor(model => model.DateBirth.Value.ToString("MM/dd/yyyy"), new
+             {
+                 @class = "form-control",
+                 @max = DateTime.Now,
+                 data_val = "true",
+                 data_val_regex = "Datum rođenja ne može biti veći od trenutnog!"
+             })
+                }
+                catch
+                { @Html.TextBoxFor(model => model.DateBirth, new
+             {
+                 @class = "form-control",
+                 @max = DateTime.Now,
+                 data_val = "true",
+                 data_val_regex = "Datum rođenja ne može biti veći od trenutnog!"
+             })
+                }
+
+                @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2 col-xs-2 control-label">
+                <p class="edit-myprofile">JMBG</p>
+            </div>
+            <div class="col-md-10 col-xs-10">
+                @Html.TextBoxFor(model => model.JMBG, new
+           {
+               @class = "form-control",
+               @maxlength = "13",
+               @minlength = "12",
+               data_val = "true",
+               data_val_regex = "JMBG moze sadrzati samo brojeve",
+               data_val_regex_pattern = @"^[0-9]*$"
+           })
+                @Html.ValidationMessageFor(model => model.JMBG, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2 col-xs-2 control-label">
+                <p class="edit-myprofile">TELEFON</p>
+            </div>
+            <div class="col-md-10 col-xs-10">
+                @Html.TextBoxFor(model => model.Phone, new
+           {
+               @class = "form-control",
+               @maxlength = "25",
+               @minlength = "6",
+               data_val = "true",
+               data_val_regex = "Broj telefona moze sadrzati samo brojeve",
+               data_val_regex_pattern = @"^[0-9]*$"
+           })
+                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2 col-xs-2 control-label">
+                <p class="edit-myprofile">ADRESA</p>
+            </div>
+            <div class="col-md-10 col-xs-10">
+                @Html.TextBoxFor(model => model.Address, new { @class = "form-control", @maxlength = "50" })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2 col-xs-2 control-label">
+                <p class="edit-myprofile">GRAD</p>
+            </div>
+            <div class="col-md-10 col-xs-10">
+                @Html.TextBoxFor(model => model.City, new
+           {
+               @class = "form-control",
+               @maxlength = "50",
+               data_val = "true",
+               data_val_regex = "Naziv grada moze sadrzati samo slova",
+               data_val_regex_pattern = @"^[a-zA-Z\s]+$"
+           })
+                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2 col-xs-2 control-label">
+                <p class="edit-myprofile">BROJ NA PRSLUKU</p>
+            </div>
+            <div class="col-md-10 col-xs-10">
+                @Html.TextBoxFor(model => model.Number, new { @class = "form-control", @maxlength = "2", required = "required" })
+                @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2 col-xs-2 control-label">
+                <p class="edit-myprofile">EMAIL</p>
+            </div>
+            <div class="col-md-10 col-xs-10">
+                @Html.TextBoxFor(model => model.Email, new
+           {
+               @type = "email",
+               @class = "form-control",
+               @maxlength = "50",
+               data_val = "true",
+               data_val_regex = "Email mora sadrzati @ i ."
+           })
+                @Html.ValidationMessageFor(model => model.Email, "Email mora sadrzati @ i tacku", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display:none;">
+            @Html.LabelFor(model => model.StatusID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StatusID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StatusID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display:none;">
+            @Html.LabelFor(model => model.LoginID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LoginID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LoginID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display:none;">
+            @Html.LabelFor(model => model.PrivilageID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PrivilageID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PrivilageID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Sacuvaj" class="btn btn-danger btn-width1" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <button type="button" class="btn btn-danger btn-width" onclick="location.href='@Url.Action("Index", "Home")'">Nazad</button>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -1,0 +1,148 @@
+﻿@model IEnumerable<wcfmotoklub.tblMember>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="color:#d43f3a">MOJ PROFIL</h2>
+<table class="table color-white" id="grad1">
+    @foreach (var item in Model)
+    {
+        <tr class="nodisplay">
+            <th>
+                <p>ID</p>
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemberID)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p>Ime</p>
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p>Prezime</p>
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p>Nadimak</p>
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nickname)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p>Datum rodjenja</p>
+            </th>
+            <td>
+                @try
+                { @item.DateBirth.Value.ToString("dd/MM/yyyy");
+                }
+                catch
+                { @Html.DisplayFor(modelitem => item.DateBirth);
+                }
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p>JMBG</p>
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.JMBG)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p>Telefon</p>
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p>Adresa</p>
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p>Grad</p>
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p>Broj na prsluku</p>
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p>Email</p>
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+        </tr>
+        <tr style="display:none;">
+            <th>
+                <p>login</p>
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoginID)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p>Privilegija</p>
+            </th>
+            <td>
+                @Html.Raw(ViewBag.PrivilageID)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p>Status</p>
+            </th>
+            <td>
+                @Html.Raw(ViewBag.StatusID)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <p>Vlasnik motora</p>
+            </th>
+            <td>
+                @Html.Raw(ViewBag.Bike)
+                @if (ViewBag.Bike == "DA")
+                {
+                    <button class="btn btn-danger btn-width1" style="float:right;" onclick="location.href = '@Url.Action("Index2", "Bike")'">POGLEDAJ</button>
+                }
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <button class="btn btn-danger" onclick="location.href = '@Url.Action("Edit", "Home", new { MemberID = item.MemberID })'" style=" margin-bottom:15px; width:115px;">Izmeni Profil</button>
+                <button class="btn btn-danger" onclick="location.href = '@Url.Action("Edit", "Login", new { LoginID = item.LoginID })'" style=" margin-bottom:15px; width:115px;">Izmeni Sifru</button>
+            </th>
+            <td></td>
+        </tr>
+        }
+    </table>

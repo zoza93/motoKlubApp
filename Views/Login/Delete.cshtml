@@ -1,0 +1,45 @@
+﻿@model wcfmotoklub.tblLogin
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3 class="naslov">DA LI STE SIGURNI DA ŽELITE DA OBRIŠETE OVAJ NALOG?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal" style="color:white;">
+        <dt class="nodisplay">
+            @Html.DisplayNameFor(model => model.LoginID)
+        </dt>
+
+        <dd class="nodisplay">
+            @Html.DisplayFor(model => model.LoginID)
+        </dd>
+
+        <dt>
+            KORISNIČKO IME
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt>
+            ŠIFRA
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="OBRIŠI" class="btn btn-danger btn-width" />
+            <button type="button" class="btn btn-danger btn-width" onclick="location.href='@Url.Action("ShowAll", "Login")'">NAZAD</button>
+        </div>
+    }
+</div>

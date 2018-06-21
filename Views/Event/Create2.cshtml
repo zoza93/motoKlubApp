@@ -1,0 +1,50 @@
+﻿@model wcfmotoklub.tblMemberEvent
+
+@{
+    ViewBag.Title = "Create2";
+}
+
+<h2 class="naslov">DODAJ POSETU</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal color-white">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="control-label col-md-2 col-xs-2">
+                <p>IME I PREZIME</p>
+            </div>
+            <div class="col-md-10 col-xs-10">
+                @Html.Raw(ViewBag.MemberID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2 col-xs-2">
+                <p>IZABERI DOGAĐAJ</p>
+            </div>
+            <div class="col-md-10 col-xs-10">
+                @Html.DropDownList("EventID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EventID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="DODAJ" class="btn btn-danger btn-width" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <button type="button" class="btn btn-danger btn-width" onclick="location.href='@Url.Action("Index2", "Event")'">Nazad</button>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
